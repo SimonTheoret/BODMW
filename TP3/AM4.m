@@ -1,16 +1,26 @@
 function position = AM4 (odefun, temps, positionActuelle, positionPrecedente, ...
-        avantDernirePosition, positionPredicteur, taillePas)
+        avantDernierePosition, positionPredicteur, taillePas)
 
-    funcPredicteur = feval(odefun, temps + taillePas, positionPredicteur);
+    function valeurPredicteur = functionPredicteur ()
+        valeurPredicteur = feval(odefun, temps + taillePas, positionPredicteur);
+    end
 
-    func0 = feval(odefun, temps, positionActuelle);
+    function valeur0 = function0()
+        valeur0 = feval(odefun, temps, positionActuelle);
+    end
 
-    func1 = feval(odefun, temps - taillepas, positionPrecedente);
+    function valeur1 = function1()
+        valeur1 = feval(odefun, temps - taillePas, positionPrecedente);
+    end
 
-    func2 = feval(odefun, temps - 2 * taillePas, avantDernirePosition);
+    function valeur2 = function2()
+        valeur2 = feval(odefun, temps - 2 * taillePas, avantDernierePosition);
+    end
 
-    increment = taillePas / 24 * ( 9 * funcPredicteur + 19 * func0 - ...
-        5 * func1 + func2);
+    function augmentation = increment()
+        augmentation = taillePas / 24 * ( 9 * functionPredicteur() + ...
+        19 * function0() - 5 * function1() + function2());
+    end
 
-    position = positionActuelle + increment;
+    position = positionActuelle + increment();
 end
