@@ -12,6 +12,6 @@ function [position] = AB3( func, temps, positionActuelle,...
 
     increment = taillePas / 12 * ( 23 * func0 - 16 * func1 + 5 * func2 );
 
-    position = positionPrecedente + increment;
+    position = positionActuelle + increment;
 end
 
