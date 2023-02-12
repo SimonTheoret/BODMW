@@ -1,4 +1,4 @@
-function [tt,path]=predcor(odefun,tspan,y0,y1,y2,Nh,predictor,corrector)
+function [tt,path]=predcor(odefun,tspan,y0,Nh,predictor,corrector)
 % INPUT
 %   odefun    : La fonction de l'ode  
 %   tspan     : L'intervalle de temps à résoudre l'ode
@@ -20,18 +20,24 @@ h=(tspan(2)-tspan(1))/Nh;
 tt=linspace(tspan(1),tspan(2),Nh+1);
 
 % Initialisation des conditions initiales
-positionPrecedente=y2;               % Dernière position
-path=[y0,y1,y2].';
+path=[y0;y1;y2];
+pos=path(end,:);               % Dernière position
+
+% Deux premiers pas avec RK4
+[~,uInter]=rk4(@f1,[t0,t0+2*h],y0,2);
+path = [path; uInter(2,:)];
+path = [path; uInter(3,:)];
+
 
 % Méthode prédicteur correcteur
 for t=tt(3:end-1)
    % Prédicteur 
-   upre = feval(predictor, odefun, t, positionPrecedente, path(end-1,:), path(end - 2, :), h);
+   posPredicteur = feval(predictor, odefun, t, pos, path(end-1,:), path(end - 2, :), h);
    % Correcteur
-   positionPrecedente = feval(corrector, odefun, t, positionPrecedente, path(end-1, :), path(end-2, :), upre, h);
+   pos = feval(corrector, odefun, t, pos, path(end-1, :), path(end-2, :), posPredicteur, h);
    
    % Sauvegarde de la nouvelle valeur
-   path = [path; positionPrecedente.'];
+   path = [path; pos];
 end
 
 end

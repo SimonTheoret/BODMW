@@ -23,14 +23,8 @@ err_pc = zeros(1,length(taille));
 for i=taille;
 ni=n(i); % Nombre de pas nécessaire pour cet itération
 
-
-% Deux premiers pas avec RK4
-h=(tf-t0)/ni;
-[tInter,uInter]=rk4(@f1,[t0,t0+2*h],y0,2);
-y1 = uInter(2,:);
-y2 = uInter(3,:);
 % Trajectoire
-[ti,yi]=predcor(@f1,[t0,tf],y0,y1,y2,ni,'AB3','AM4'); 
+[ti,yi]=predcor(@f1,[t0,tf],y0,ni,'AB3','AM4'); 
 
 yf(i)=yi(ni+1);
 err_pc(i)=abs((yf(i)-yref)/yref);   % Erreur relative;

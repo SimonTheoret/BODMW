@@ -1,5 +1,7 @@
 % Exemple en classe de prédicteur (Euler) correcteur (CN)
-clear;
+clear;clc;
+format compact;
+format short e;
 % Intervalle de temps
 t0=0;tf=20;
 
@@ -10,7 +12,7 @@ y0=0.5;
 yref=solex(tf);
 
 % Nombre de pas
-taille = 1:15;
+taille = 1:20;
 n=2.^taille;
 
 % Initialisation de vecteur
@@ -19,14 +21,10 @@ err_pc = zeros(1,length(taille));
 
 % Méthode prédicteur correcteur
 for i=taille;
-ni=n(i) % Nombre de pas nécessaire pour cet itération
-
-% Deux premiers pas avec RK4
-h=(tf-t0)/ni;
-[tInter,uIter]=rk4(@f1,[t0,t0+2*h],y0,2);
+ni=n(i); % Nombre de pas nécessaire pour cet itération
 
 % Trajectoire
-[ti,yi]=predcor1(@f1,[t0,tf],y0,ni,'eulerunpas','cnunpas'); 
+[ti,yi]=predcor(@f1,[t0,tf],y0,ni,'AB3','AM4'); 
 
 yf(i)=yi(ni+1);
 err_pc(i)=abs((yf(i)-yref)/yref);   % Erreur relative;
