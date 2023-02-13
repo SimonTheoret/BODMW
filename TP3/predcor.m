@@ -1,10 +1,8 @@
-function [tt,path]=predcor(odefun,tspan,y0,Nh,predictor,corrector)
+function [tt,path]=predcor(odefun,tspan,y0,Nh,predictor,corrector,omega,Omega,theta)
 % INPUT
 %   odefun    : La fonction de l'ode  
 %   tspan     : L'intervalle de temps à résoudre l'ode
 %   y0        : Zéro pas (Contion initiale)
-%   y1        : Premier pas
-%   y2        : Deuxième pas
 %   Nh        : Nombre total de pas
 %   predictor : Fonction prédicteur
 %   corrector : Fonction correcteur
@@ -31,9 +29,9 @@ pos=path(end,:);               % Dernière position
 % Méthode prédicteur correcteur
 for t=tt(3:end-1)
    % Prédicteur 
-   posPredicteur = feval(predictor, odefun, t, pos, path(end-1,:), path(end - 2, :), h);
+   posPredicteur = feval(predictor, odefun, t, pos, path(end-1,:), path(end - 2, :), h,omega,Omega,theta);
    % Correcteur
-   pos = feval(corrector, odefun, t, pos, path(end-1, :), path(end-2, :), posPredicteur, h);
+   pos = feval(corrector, odefun, t, pos, path(end-1, :), path(end-2, :), posPredicteur, h,omega,Omega,theta);
    
    % Sauvegarde de la nouvelle valeur
    path = [path; pos];

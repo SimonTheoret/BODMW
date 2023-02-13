@@ -1,4 +1,4 @@
-function positionFinale = foucaultODE(positionInitiale,omega,Omega,theta)
+function positionFinale = foucaultODE(temps,positionInitiale,omega,Omega,theta)
 % DESCRITION
 %       Partie droite du système d'équations
 % INPUT
