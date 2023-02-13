@@ -32,7 +32,7 @@ n=2.^(5:13);
 taille = length(n);
 
 % Initialisation de vecteur
-zf = zeros(length(taille),2);
+zf = zeros(length(taille));
 err_pc = zeros(1,length(taille));
 
 % Méthode prédicteur correcteur
@@ -40,10 +40,10 @@ for i=1:taille;
 ni=n(i); % Nombre de pas nécessaire pour cet itération
 
 % Trajectoire
-%[ti,zi]=predcor(@foucaultODE,[t0,tf],z0Total,ni,'AB3','AM4',omega,Omega,theta); 
-[ti,zi]=predcor2(@foucaultODE,[t0,tf],z0Total,ni,'eulerunpas2','cnunpas2',omega,Omega,theta); 
+[ti,zi]=predcor(@foucaultODE,[t0,tf],z0Total,ni,'AB3','AM4',omega,Omega,theta); 
+%[ti,zi]=predcor2(@foucaultODE,[t0,tf],z0Total,ni,'eulerunpas2','cnunpas2',omega,Omega,theta); 
 
-zf(i,:)=zi(end,:);
+zf(i)=zi(end,1);
 err_pc(i)=norm((zf(i)-zRef));   % Erreur absolue;
 end;
 zf

@@ -1,4 +1,4 @@
-function [tt,u]=rk4(odefun,tspan,y0,Nh)
+function [tt,u]=rk4TP3(odefun,tspan,y0,Nh)
 %
 % script MATLAB écrit par Anne Bourlioux
 %
