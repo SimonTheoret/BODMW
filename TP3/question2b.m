@@ -21,7 +21,7 @@ z0Prime = x0Prime + 1i * y0Prime;
 z0Total = [z0,z0Prime];
 
 %Temps finale
-tf = 6*pi/omegaZero;
+tf = 6*pi/omegaZero-1;
 %tf=3*pi/omegaZero;
 
 % Solution de référence
@@ -51,9 +51,18 @@ err_pc
 %   Graphique
 h=(tf-t0)./n;
 figure(1)
+clf;
 polyfit(log(h(1:end)),log(err_pc(1:end)),1)
 loglog(h,err_pc,'bo-')
 hold on
 legend('predicteur-correcteur')
 xlabel('h');ylabel('Erreur en norme 2 en t_f');
 title('Comportement erreur(h) pour predicteur-correcteur AB3 et AM4');
+
+%   Graphique de derniere trajectoire
+figure(2)
+clf;
+plot(real(zi(:,1)),imag(zi(:,1)),'b.-')
+hold on
+xlabel('x');ylabel('y');
+title('Trajectoire');

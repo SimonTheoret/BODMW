@@ -1,4 +1,4 @@
-function [tt,u]=rk4TP3(odefun,tspan,y0,Nh)
+function [tt,u]=rk4TP3(odefun,tspan,y0,Nh,omega,Omega,theta)
 %
 % script MATLAB écrit par Anne Bourlioux
 %
@@ -11,16 +11,16 @@ u=y0; %ex: y0 = [x1,x2,...,xn]
 
 for t=tt(1:end-1)
   y = u(end,:); %toute la dernière ligne
-  k1=feval(odefun,t,y);
+  k1=feval(odefun,t,y,omega,Omega,theta);
   y1 = y + 0.5*h*k1;
   t1 = t+h/2;
-  k2=feval(odefun,t1,y1);
+  k2=feval(odefun,t1,y1,omega,Omega,theta);
   y2 = y + 0.5*h*k2;
   t2 = t+h/2;
-  k3=feval(odefun,t2,y2);
+  k3=feval(odefun,t2,y2,omega,Omega,theta);
   y3 = y + h*k3;
   t3=t+h;
-  k4=feval(odefun,t3,y3);
+  k4=feval(odefun,t3,y3,omega,Omega,theta);
   %
   u = [u; u(end,:) + hh*(k1+2*k2+2*k3+k4)]; %Matrice Nhx4
 end

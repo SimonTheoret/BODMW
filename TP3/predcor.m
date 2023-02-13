@@ -21,7 +21,7 @@ tt=linspace(tspan(1),tspan(2),Nh+1);
 path=[y0];
 
 % Deux premiers pas avec RK4
-[~,uInter]=rk4(odefun,[tspan(1),tspan(1)+2*h],y0,2);
+[~,uInter]=rk4TP3(odefun,[tspan(1),tspan(1)+2*h],y0,2,omega,Omega,theta);
 path = [path; uInter(2,:)];
 path = [path; uInter(3,:)];
 pos=path(end,:);               % Dernière position
