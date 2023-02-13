@@ -47,7 +47,6 @@ zf(i)=zi(end,1);
 err_pc(i)=norm((zf(i)-zRef));   % Erreur absolue;
 end;
 zf
-err_pc
 
 %   Graphique
 h=(tf-t0)./n;
