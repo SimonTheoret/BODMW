@@ -1,4 +1,4 @@
-function positionFinale = foucaultODE(positionInitiale,omega,Omega,theta)
+function positionFinale = foucaultODE(positionInitiale)
 % DESCRITION
 %       Partie droite du système d'équations
 % INPUT
@@ -9,12 +9,8 @@ function positionFinale = foucaultODE(positionInitiale,omega,Omega,theta)
 %       positionFinale      : Vecteur final [z,z'] = [z1,z2]
 %
 % ---------------------------------------------------------------------
-z1= positionInitiale(1);
-z2= positionInitiale(2);
 
-positionFinale(1) = z2;
-
-positionFinale(2) = (-omega^2)*z1-(2i*Omega*sin(theta))*z2;
-
+z1
+positionFinale = [z1,z2];
 end
 
