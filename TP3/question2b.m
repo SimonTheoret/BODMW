@@ -21,7 +21,7 @@ z0Prime = x0Prime + 1i * y0Prime;
 z0Total = [z0,z0Prime];
 
 %Temps finale
-tf = 6*pi/omegaZero-1;
+tf = 6*pi/omegaZero;
 %tf=3*pi/omegaZero;
 
 % Solution de référence
@@ -46,8 +46,7 @@ ni=n(i); % Nombre de pas nécessaire pour cet itération
 zf(i)=zi(end,1);
 err_pc(i)=norm((zf(i)-zRef));   % Erreur absolue;
 end;
-zf
-err_pc
+
 %   Graphique
 h=(tf-t0)./n;
 figure(1)
