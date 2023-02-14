@@ -58,7 +58,7 @@ loglog(h,err_pc,'bo-')
 hold on
 legend('predicteur-correcteur')
 xlabel('h');ylabel('Erreur en norme 2 en t_f');
-title('Comportement erreur(h) pour predicteur-correcteur AB3 et AM4');
+title("Comportement norme de l'erreur(h) pour predicteur-correcteur AB3 et AM4");
 
 %   Graphique de derniere trajectoire
 figure(2)
@@ -67,3 +67,5 @@ plot(real(zi(:,1)),imag(zi(:,1)),'b.-')
 hold on
 xlabel('x');ylabel('y');
 title('Trajectoire');
+
+polyfit(log(h(1:end)),log(err_pc(1:end)),1)

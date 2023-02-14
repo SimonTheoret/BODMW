@@ -1,20 +1,20 @@
-function position = AM4 (odefun, temps, positionActuelle, positionPrecedente, ...
-        avantDernierePosition, positionPredicteur, taillePas,omega,Omega,theta)
+function position = AM4Generale (odefun, temps, positionActuelle, positionPrecedente, ...
+        avantDernierePosition, positionPredicteur, taillePas)
 
     function valeurPredicteur = functionPredicteur ()
-        valeurPredicteur = feval(odefun, temps + taillePas, positionPredicteur,omega,Omega,theta);
+        valeurPredicteur = feval(odefun, temps + taillePas, positionPredicteur);
     end
 
     function valeur0 = function0()
-        valeur0 = feval(odefun, temps, positionActuelle,omega,Omega,theta);
+        valeur0 = feval(odefun, temps, positionActuelle);
     end
 
     function valeur1 = function1()
-        valeur1 = feval(odefun, temps - taillePas, positionPrecedente,omega,Omega,theta);
+        valeur1 = feval(odefun, temps - taillePas, positionPrecedente);
     end
 
     function valeur2 = function2()
-        valeur2 = feval(odefun, temps - 2 * taillePas, avantDernierePosition,omega,Omega,theta);
+        valeur2 = feval(odefun, temps - 2 * taillePas, avantDernierePosition);
     end
 
     function augmentation = increment()
@@ -24,3 +24,5 @@ function position = AM4 (odefun, temps, positionActuelle, positionPrecedente, ..
 
     position = positionActuelle + increment();
 end
+
+
