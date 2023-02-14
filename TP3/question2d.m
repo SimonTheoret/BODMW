@@ -1,4 +1,5 @@
-%SCRIPT : Question 2 b) du TP3. 
+%Script: Question 2.d du TP3.
+clc
 format compact;
 format short e;
 
@@ -6,13 +7,13 @@ format short e;
 t0=0;
 
 g = 9.81;
-theta=0;
-l=67;
+theta = ( 45 + 31 / 60 ) / 360 * 2 *pi;
+l=8;
 Omega = 7.29*10^(-5);
 omega = sqrt(g/l);
 omegaZero = sqrt(omega^2+Omega^2*sin(theta)^2);
 
-x0=6.0;
+x0=0.5;
 x0Prime = 0;
 y0 = 0;
 y0Prime = 0;
@@ -21,49 +22,38 @@ z0Prime = x0Prime + 1i * y0Prime;
 z0Total = [z0,z0Prime];
 
 %Temps finale
-tf = 6*pi/omegaZero;
-%tf=3*pi/omegaZero;
+tf = 20*pi/omegaZero;
 
 % Solution de référence
 zRef=solexFoucault(tf,z0,z0Prime,omega,Omega,theta)
 
 % Nombre de pas
-n=2.^(5:13);
+n=2.^(14);
 taille = length(n);
 
 % Initialisation de vecteur
 zf = zeros(length(taille));
-err_pc = zeros(1,length(taille));
 
 % Méthode prédicteur correcteur
 for i=1:taille;
-ni=n(i); % Nombre de pas nécessaire pour cette itération
+ni=n(i); % Nombre de pas nécessaire pour cet itération
 
 % Trajectoire
 [ti,zi]=predcor(@foucaultODE,[t0,tf],z0Total,ni,'AB3','AM4',omega,Omega,theta); 
 %[ti,zi]=predcor2(@foucaultODE,[t0,tf],z0Total,ni,'eulerunpas2','cnunpas2',omega,Omega,theta); 
 
 zf(i)=zi(end,1);
-err_pc(i)=norm((zf(i)-zRef));   % Erreur absolue;
 end;
 zf
-err_pc
-
-%   Graphique
-h=(tf-t0)./n;
+anglePosition = asin(imag(zf)/real(zf))
+nombreOscillations = (2*pi/anglePosition)*10
+%   Graphique de derniere trajectoire
 figure(1)
 clf;
-polyfit(log(h(1:end)),log(err_pc(1:end)),1)
-loglog(h,err_pc,'bo-')
-hold on
-legend('predicteur-correcteur')
-xlabel('h');ylabel('Erreur en norme 2 en t_f');
-title('Comportement erreur(h) pour predicteur-correcteur AB3 et AM4');
-
-%   Graphique de derniere trajectoire
-figure(2)
-clf;
 plot(real(zi(:,1)),imag(zi(:,1)),'b.-')
+%axis equal
+xlim([-5 5])
+ylim([-5 5])
 hold on
 xlabel('x');ylabel('y');
 title('Trajectoire');
