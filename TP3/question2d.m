@@ -47,9 +47,11 @@ for i=1:taille;
 end;
 
 positionAngulaire = asin(imag(zf)/norm(zf))
-propotionAngleParcouru = positionAngulaire/(2*pi)
+propotionAngleParcouru = abs(positionAngulaire)/(2*pi)
 nbrOscillationsPeriode = 1/(propotionAngleParcouru)*nbrOscillations
-temps = nbrOscillationsPeriode * 2*pi/omegaZero
+tempsPeriode = nbrOscillationsPeriode * 2*pi/omegaZero
+heurePeriode = floor(tempsPeriode/3600) 
+minutePeriode = (tempsPeriode/3600-heurePeriode)*60
 
 % Jour pendulaire théorique:
 jourPendulaire = 2*pi / (Omega * sin(theta)) % Temps en secondes
@@ -57,4 +59,5 @@ jourPendulaire = 2*pi / (Omega * sin(theta)) % Temps en secondes
 heureJourPendulaire = floor(jourPendulaire/3600) 
 minutesJourPendulaire = (jourPendulaire/3600-heureJourPendulaire)*60
 
+diff = abs(tempsPeriode - jourPendulaire)
 
