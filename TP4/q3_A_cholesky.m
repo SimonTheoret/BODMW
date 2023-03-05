@@ -1,2 +1,8 @@
 % Question 3 pour l'algo A - Cholesky
-[t,A] = genererTiMatrice(6,5);
+m=6;
+n=5;
+[t,A] = genererTiMatrice(m,n);
+xExact = ones(1,n);
+b = A*xExact';
+ACho = (A')*A;
+cholesky(ACho)
