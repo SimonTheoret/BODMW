@@ -3,7 +3,7 @@ clc; clear;
 format compact;
 format short e;
 %Dimensions du problèmes
-m=50;
+m=50;   
 taille = 4:18;
 p=2;
 
@@ -36,6 +36,16 @@ end
 % MÉTHODE C - GRAM-SCHMIDT MODIFIÉ
 % MÉTHODE D - GRAM-SCHMIDT CLASSIQUE ITÉRÉE
 % MÉTHODE E - ROTATIONS DE GIVENS
+errE = zeros(length(taille),1);
+for n=taille;
+    % Générer le vecteur des ti et la matrice A associé
+    [t,A] = genererTiMatrice(m,n);
+
+    [qChap,R] = rotationsGivens(A);
+    
+    errA(n-taille(1)+1)=norm(eye(n) - qChap'*qChap);
+
+end
 % MÉTHODE F - TRANSFORMATIONS DE HOUSEHOLDER
 
 % Visualisation sur la console
@@ -44,15 +54,24 @@ errA' % A - Cholesky
 % C - GM Modifié
 % D - GM Classique itérée
 % E - Rotation de Givens
-% E - Rotation de Givens
+% F - Transformations de Householder
 
 %% FIGURE
-log10A = -log10(errA);
-% ------------AJOUTER log10BàF B à F
+log10A = -log10(errA);  % A - Cholesky
+% B - GM Classique
+% C - GM Modifié
+% D - GM Classique itérée
+% E - Rotation de Givens
+% F - Transformations de Householder
 
 figure(1);
 hold on;
-plot(tailleCho,log10A,'bo--')  % Graphique cholesky
-% ------------AJOUTER B à F
-legend('A - Cholesky') % ------------AJOUTER B à F
+plot(tailleCho,log10A,'bo--')  % A - Cholesky
+% B - GM Classique
+% C - GM Modifié
+% D - GM Classique itérée
+% E - Rotation de Givens
+% F - Transformations de Householder
+
+legend('A - Cholesky') % ------------AJOUTER B à F !!!!!!!!!!!!!!!!!!!!!
 hold off;

@@ -1,0 +1,36 @@
+function [QChap,R]=rotationsGivens(A)
+%Dimensions A
+[nbLigneA,nbColonneA] = size(A); 
+
+%Initialisation matrice Q
+Q =eye(nbLigneA);
+
+% Rotations de Givens
+for j = 1:nbColonneA
+    for i=nbLigneA:-1:(1+j)
+    
+    % Calculer matrice rotation selon algo de  Gobul et Van Loan;
+    a = A(i-1,j);
+    b = A(i,j);
+    if b==0
+        c=1;s=0;
+    else
+        if abs(b)> abs(a)
+            tau = -a/b; s= 1/sqrt(1+tau^2);c=s*tau;
+        else
+            tau = -b/a; c= 1/sqrt(1+tau^2);s=c*tau;
+        end
+    end
+    
+    Rot = [c,s;-s,c];
+    
+    % Rotations de Givens appliquée à la matrice A
+    GT = eye(nbLigneA);
+    GT(i-1:i,i-1:i) = Rot;
+    Q = GT'*Q;
+    A=GT'*A;
+    end
+end
+R = A;
+QChap = Q(:,1:nbColonneA);
+end
