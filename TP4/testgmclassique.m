@@ -7,4 +7,8 @@ disp("test itéré:")
 sol = gramSchmidtClassiqueItere(A,1);
 autSol = gramSchmidtClassiqueItere(A,7)
 
-% gwo test de GM itéré:
+% test transformation householder:
+matR = transfHouseholder(A);
+
+B = [12,-51,4; 6, 167, -68; -4, 24 ,-41];
+transfHouseholder(B)

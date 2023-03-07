@@ -11,5 +11,5 @@ nbrColonnes = size(matriceInitiale,2);
         vk = vk/norm(vk,2);
         matriceInitiale(k:nbrLignes,k:nbrColonnes)= matriceInitiale(k:nbrLignes,k:nbrColonnes)- 2*vk*(vk'*matriceInitiale(k:nbrLignes,k:nbrColonnes));
     end
-    matriceR = matriceInitiale;
+    matriceR = matriceInitiale
 end
