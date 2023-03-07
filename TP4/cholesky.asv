@@ -9,7 +9,6 @@ end
 for i=1:m
     L(i,i)=sqrt(A(i,i)-sum(abs(L(i,1:i-1)).^2));
     if conj(L(i,i))~=L(i,i) %L(i,i) n'est pas réel
-        
       disp('matrice n`est pas HDP')
       L=[];
         return
