@@ -33,6 +33,14 @@ for n=tailleCho;
 end
 
 % MÉTHODE B - GRAM-SCHMIDT CLASSIQUE
+errB = zeros(length(taille), 1);
+for n=taille
+    [t,A] = genererTiMatrice(m,n);
+
+    [qChap,R]=gramSchmidtClassique(A);
+
+    errB(n-taille(1)+1)=norm(eye(n) - qChap'*qChap);
+end
 % MÉTHODE C - GRAM-SCHMIDT MODIFIÉ
 errC = zeros(length(taille),1);
 for n=taille
@@ -45,6 +53,14 @@ for n=taille
 
 end
 % MÉTHODE D - GRAM-SCHMIDT CLASSIQUE ITÉRÉE
+errD = zeros(length(taille), 1);
+for n=taille
+    [t,A] = genererTiMatrice(m,n);
+
+    qChap=gramSchmidtClassiqueItere(A,2);
+
+    errD(n-taille(1)+1)=norm(eye(n) - qChap'*qChap);
+end
 % MÉTHODE E - ROTATIONS DE GIVENS
 errE = zeros(length(taille),1);
 for n=taille
@@ -57,33 +73,73 @@ for n=taille
 
 end
 % MÉTHODE F - TRANSFORMATIONS DE HOUSEHOLDER
+errF = zeros(length(taille),1);
+for n=taille
+    % Générer le vecteur des ti et la matrice A associé
+    [t,A] = genererTiMatrice(m,n);
+
+    [qChap,R] = transfHouseholder(A);
+    eye(n) - qChap'*qChap
+    errF(n-taille(1)+1)=norm(eye(n) - qChap'*qChap);
+
+end
 
 % Visualisation sur la console
 errA' % A - Cholesky
 
 % B - GM Classique
-errC'% C - GM Modifié
+errB'
+
+% C - GM Modifié
+errC'
+
 % D - GM Classique itérée
-errE' % E - Rotation de Givens
+errD'
+
+% E - Rotation de Givens
+errE' 
+
 % F - Transformations de Householder
+errF'
 
 %% FIGURE
-log10A = -log10(errA);  % A - Cholesky
+% A - Cholesky
+log10A = -log10(errA);  
 
 % B - GM Classique
-log10C = -log10(errC); % C - GM Modifié
+log10B = -log10(errB);
+
+% C - GM Modifié
+log10C = -log10(errC);
+
 % D - GM Classique itérée
-log10E = -log10(errE); % E - Rotation de Givens
+log10D = -log10(errD);
+
+% E - Rotation de Givens
+log10E = -log10(errE); 
+
 % F - Transformations de Householder
+log10F = -log10(errF); 
 
 figure(1);
 hold on;
-plot(tailleCho,log10A,'bo--')  % A - Cholesky
+% A - Cholesky
+plot(tailleCho,log10A,'bo--')  
+
 % B - GM Classique
-plot(taille,log10C,'ko--') % C - GM Modifié
+plot(taille,log10B,'gx--')  
+
+% C - GM Modifié
+plot(taille,log10C,'ko--') 
+
 % D - GM Classique itérée
-plot(taille,log10E,'r*--') % E - Rotation de Givens
+plot(taille,log10D,'cx-') 
+
+% E - Rotation de Givens
+plot(taille,log10E,'r*--') 
+
 % F - Transformations de Householder
+%plot(taille,log10E,'r*--') 
 
 legend('A - Cholesky','C - GM Modifié','E - Rotation de Givens','Location','best') % ------------AJOUTER B à F !!!!!!!!!!!!!!!!!!!!!
 hold off;
